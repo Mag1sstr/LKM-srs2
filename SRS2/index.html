@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Моделирование процесса приготовления ЛКМ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white sticky top-0 z-50 shadow-lg">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-between items-center">
+          <h1 class="text-xl font-bold py-3">ЛКМ Моделирование</h1>
+          <button id="mobileMenuBtn" class="md:hidden p-2">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+          <div
+            id="navMenu"
+            class="hidden md:flex flex-wrap w-full md:w-auto mt-4 md:mt-0"
+          >
+            <a
+              href="#main"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Главная</a
+            >
+            <a
+              href="#theory"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Теория</a
+            >
+            <a
+              href="#model"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Модель</a
+            >
+            <a
+              href="#simulation"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Моделирование</a
+            >
+            <a
+              href="#optimization"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Оптимизация</a
+            >
+            <a
+              href="#results"
+              class="nav-link block px-4 py-2 hover:bg-blue-700 rounded transition"
+              >Результаты</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Section 1: Main Page -->
+    <section
+      id="main"
+      class="section bg-gradient-to-br from-blue-50 to-indigo-100"
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h1
+            class="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-8"
+          >
+            Моделирование процесса приготовления лакокрасочных материалов (ЛКМ)
+          </h1>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Цель работы</h2>
+            <p class="text-gray-700 mb-4">
+              Разработка и исследование математической модели процесса
+              смешивания компонентов лакокрасочных материалов в смесительном
+              оборудовании для оптимизации технологических параметров.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Задачи работы</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>Изучить физико-химические основы процесса смешивания ЛКМ</li>
+              <li>
+                Разработать дифференциальную математическую модель изменения
+                концентрации
+              </li>
+              <li>
+                Провести вычислительные эксперименты при различных режимах
+                смешивания
+              </li>
+              <li>
+                Выполнить оптимизацию технологических параметров по критерию
+                энергозатрат
+              </li>
+              <li>
+                Проанализировать полученные результаты и сформулировать выводы
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">
+              Описание технологического процесса
+            </h2>
+            <p class="text-gray-700 mb-4">
+              Процесс приготовления лакокрасочных материалов осуществляется в
+              смесителе объёмом V путём смешивания двух основных компонентов:
+            </p>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-800 mb-2">Компонент G1</h3>
+                <p class="text-gray-700">Смола (основной компонент ЛКМ)</p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="font-bold text-green-800 mb-2">Компонент G2</h3>
+                <p class="text-gray-700">Растворитель (разбавитель)</p>
+              </div>
+            </div>
+            <p class="text-gray-700">
+              Смешивание происходит при вращении мешалки со скоростью n
+              (об/мин). В процессе смешивания происходит выравнивание
+              концентрации компонентов по объёму смесителя, что характеризуется
+              изменением концентрации C(t) во времени.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Theoretical Part -->
+    <section id="theory" class="section bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+            Теоретическая часть
+          </h2>
+
+          <div class="bg-gray-50 rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Принцип работы смесителя
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Смеситель представляет собой ёмкость с механической мешалкой,
+              обеспечивающей интенсивное перемешивание компонентов. Основные
+              технологические параметры:
+            </p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li><strong>V</strong> — объём смесителя (л)</li>
+              <li><strong>n</strong> — скорость вращения мешалки (об/мин)</li>
+              <li><strong>t</strong> — время смешивания (мин)</li>
+              <li>
+                <strong>C(t)</strong> — концентрация компонента в момент времени
+                t
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Закон сохранения материи в динамике
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Для динамической системы справедливо уравнение материального
+              баланса:
+            </p>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl">Приход = Убыль + Приращение</span>
+            </div>
+            <p class="text-gray-700 mb-4">
+              В дифференциальной форме для смесителя:
+            </p>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl"
+                >(1.15) d(V·C)/dt = G₁·C₁ - G₂·C₂</span
+              >
+            </div>
+            <p class="text-gray-700">Где:</p>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>G₁ — расход компонента G1 (кг/ч)</li>
+              <li>G₂ — расход компонента G2 (кг/ч)</li>
+              <li>C₁, C₂ — концентрации на входе</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl shadow-lg p-6 md:p-8">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Дифференциальная модель
+            </h3>
+            <p class="text-gray-700 mb-4">
+              При постоянном объёме смесителя (V = const) и assuming G₁ = G₂ =
+              G:
+            </p>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl">(1.16) V·dC/dt = G·(C₁ - C)</span>
+            </div>
+            <p class="text-gray-700">
+              После преобразования получаем дифференциальное уравнение первого
+              порядка, описывающее изменение концентрации во времени.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Mathematical Model -->
+    <section
+      id="model"
+      class="section bg-gradient-to-br from-green-50 to-blue-50"
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+            Математическая модель
+          </h2>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Основные переменные и коэффициенты
+            </h3>
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-blue-100">
+                  <th class="p-3 border">Обозначение</th>
+                  <th class="p-3 border">Описание</th>
+                  <th class="p-3 border">Единицы</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="p-3 border font-mono">V</td>
+                  <td class="p-3 border">Объём смеси</td>
+                  <td class="p-3 border">л</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">n</td>
+                  <td class="p-3 border">Скорость мешалки</td>
+                  <td class="p-3 border">об/мин</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">t</td>
+                  <td class="p-3 border">Время</td>
+                  <td class="p-3 border">мин</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">C(t)</td>
+                  <td class="p-3 border">Концентрация</td>
+                  <td class="p-3 border">%</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">C₀</td>
+                  <td class="p-3 border">Начальная концентрация</td>
+                  <td class="p-3 border">%</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">k</td>
+                  <td class="p-3 border">Коэффициент интенсивности</td>
+                  <td class="p-3 border">1/мин</td>
+                </tr>
+                <tr>
+                  <td class="p-3 border font-mono">A₁, A₂</td>
+                  <td class="p-3 border">Коэффициенты модели</td>
+                  <td class="p-3 border">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Уравнение изменения концентрации
+            </h3>
+            <p class="text-gray-700 mb-4">
+              С использованием преобразований Лагранжа решение дифференциального
+              уравнения:
+            </p>
+            <div
+              class="bg-white p-4 rounded-lg mb-4 text-center border-2 border-blue-200"
+            >
+              <span class="formula text-xl"
+                >(1.17) C(t) = C₀·e^(-k·t) + C∞·(1 - e^(-k·t))</span
+              >
+            </div>
+            <p class="text-gray-700 mb-4">
+              Где C∞ — равновесная концентрация (целевое значение).
+            </p>
+            <p class="text-gray-700">
+              Коэффициент интенсивности k зависит от скорости вращения мешалки:
+            </p>
+            <div class="bg-white p-4 rounded-lg text-center">
+              <span class="formula text-xl">k = A₁·n + A₂</span>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Метод наименьших квадратов (МНК)
+            </h3>
+            <p class="text-gray-700 mb-4">
+              Для определения коэффициентов A₁ и A₂ используется МНК. Система
+              нормальных уравнений:
+            </p>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl"
+                >(1.21) Σ(nᵢ·kᵢ)·A₁ + Σ(kᵢ)·A₂ = Σ(nᵢ·kᵢ²)</span
+              >
+            </div>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl"
+                >(1.22) Σ(nᵢ²)·A₁ + Σ(nᵢ)·A₂ = Σ(nᵢ·kᵢ)</span
+              >
+            </div>
+            <p class="text-gray-700 mb-4">Решение системы:</p>
+            <div class="bg-white p-4 rounded-lg mb-4 text-center">
+              <span class="formula text-xl"
+                >(1.23) A₁ = (Σ(nᵢ·kᵢ²)·Σ(nᵢ) - Σ(kᵢ)·Σ(nᵢ·kᵢ)) / D</span
+              >
+            </div>
+            <div class="bg-white p-4 rounded-lg text-center">
+              <span class="formula text-xl"
+                >(1.24) A₂ = (Σ(nᵢ²)·Σ(nᵢ·kᵢ) - Σ(nᵢ·kᵢ²)·Σ(nᵢ)) / D</span
+              >
+            </div>
+            <p class="text-gray-700">
+              Где D = Σ(nᵢ²)·Σ(nᵢ) - (Σ(nᵢ))² — определитель системы.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Ограничения модели
+            </h3>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+              <li>V > 0 (объём должен быть положительным)</li>
+              <li>100 ≤ n ≤ 500 (скорость мешалки, об/мин)</li>
+              <li>1 ≤ t ≤ 20 (время смешивания, мин)</li>
+              <li>0 ≤ C(t) ≤ 100 (концентрация в процентах)</li>
+              <li>k > 0 (коэффициент интенсивности положительный)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Simulation -->
+    <section id="simulation" class="section bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+            Моделирование (Вычислительные эксперименты)
+          </h2>
+
+          <div class="grid lg:grid-cols-2 gap-6 mb-8">
+            <!-- Controls Panel -->
+            <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold text-blue-700 mb-4">
+                Параметры модели
+              </h3>
+
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Объём смеси V (л): <span id="volumeValue">100</span></label
+                  >
+                  <input
+                    type="range"
+                    id="volume"
+                    min="10"
+                    max="500"
+                    value="100"
+                    class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <input
+                    type="number"
+                    id="volumeInput"
+                    min="10"
+                    max="500"
+                    value="100"
+                    class="mt-2 w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Скорость мешалки n (об/мин):
+                    <span id="speedValue">300</span></label
+                  >
+                  <input
+                    type="range"
+                    id="speed"
+                    min="100"
+                    max="500"
+                    value="300"
+                    class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <input
+                    type="number"
+                    id="speedInput"
+                    min="100"
+                    max="500"
+                    value="300"
+                    class="mt-2 w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Время смешивания t (мин):
+                    <span id="timeValue">10</span></label
+                  >
+                  <input
+                    type="range"
+                    id="time"
+                    min="1"
+                    max="20"
+                    value="10"
+                    class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <input
+                    type="number"
+                    id="timeInput"
+                    min="1"
+                    max="20"
+                    value="10"
+                    class="mt-2 w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Начальная концентрация C₀ (%):
+                    <span id="c0Value">10</span></label
+                  >
+                  <input
+                    type="range"
+                    id="c0"
+                    min="0"
+                    max="50"
+                    value="10"
+                    class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <input
+                    type="number"
+                    id="c0Input"
+                    min="0"
+                    max="50"
+                    value="10"
+                    class="mt-2 w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Равновесная концентрация C∞ (%):
+                    <span id="cInfValue">80</span></label
+                  >
+                  <input
+                    type="range"
+                    id="cInf"
+                    min="50"
+                    max="100"
+                    value="80"
+                    class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <input
+                    type="number"
+                    id="cInfInput"
+                    min="50"
+                    max="100"
+                    value="80"
+                    class="mt-2 w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Коэффициент A₁: <span id="a1Value">0.0005</span></label
+                  >
+                  <input
+                    type="number"
+                    id="a1"
+                    min="0.0001"
+                    max="0.001"
+                    step="0.0001"
+                    value="0.0005"
+                    class="w-full p-2 border rounded"
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2"
+                    >Коэффициент A₂: <span id="a2Value">0.05</span></label
+                  >
+                  <input
+                    type="number"
+                    id="a2"
+                    min="0.01"
+                    max="0.1"
+                    step="0.01"
+                    value="0.05"
+                    class="w-full p-2 border rounded"
+                  />
+                </div>
+              </div>
+
+              <div class="mt-6 p-4 bg-blue-100 rounded-lg">
+                <h4 class="font-bold text-blue-800 mb-2">
+                  Рассчитанные значения:
+                </h4>
+                <p class="text-gray-700">
+                  Коэффициент k:
+                  <span id="kValue" class="font-mono font-bold">0.2</span> 1/мин
+                </p>
+                <p class="text-gray-700">
+                  Концентрация C(t):
+                  <span id="ctValue" class="font-mono font-bold">73.2</span> %
+                </p>
+                <p class="text-gray-700">
+                  Производная dC/dt:
+                  <span id="dcdtValue" class="font-mono font-bold">1.46</span>
+                  %/мин
+                </p>
+              </div>
+
+              <button
+                id="runExperiment"
+                class="mt-4 w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition"
+              >
+                Провести эксперимент
+              </button>
+
+              <div
+                id="errorMsg"
+                class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden"
+              ></div>
+            </div>
+
+            <!-- Real-time Graph -->
+            <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold text-blue-700 mb-4">
+                График концентрации C(t)
+              </h3>
+              <div class="chart-container">
+                <canvas id="concentrationChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experiments Table -->
+          <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold text-blue-700">
+                Результаты экспериментов
+              </h3>
+              <div class="space-x-2">
+                <button
+                  id="clearExperiments"
+                  class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                >
+                  Очистить
+                </button>
+                <button
+                  id="runSeries"
+                  class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                  Серия из 5
+                </button>
+              </div>
+            </div>
+            <div class="table-container">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-blue-100 sticky top-0">
+                  <tr>
+                    <th class="p-3 border">#</th>
+                    <th class="p-3 border">V (л)</th>
+                    <th class="p-3 border">n (об/мин)</th>
+                    <th class="p-3 border">t (мин)</th>
+                    <th class="p-3 border">C₀ (%)</th>
+                    <th class="p-3 border">C∞ (%)</th>
+                    <th class="p-3 border">k (1/мин)</th>
+                    <th class="p-3 border">C(t) (%)</th>
+                    <th class="p-3 border">dC/dt (%/мин)</th>
+                  </tr>
+                </thead>
+                <tbody id="experimentsTable">
+                  <tr class="text-gray-500">
+                    <td colspan="9" class="p-4 text-center">
+                      Нет данных. Проведите эксперимент.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Optimization -->
+    <section
+      id="optimization"
+      class="section bg-gradient-to-br from-purple-50 to-blue-50"
+    >
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+            Оптимизация технологического процесса
+          </h2>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Критерий оптимизации
+            </h3>
+            <p class="text-gray-700 mb-4">Минимизация условных энергозатрат:</p>
+            <div
+              class="bg-white p-4 rounded-lg mb-4 text-center border-2 border-purple-200"
+            >
+              <span class="formula text-xl">E(n, t) = a · n² · t</span>
+            </div>
+            <p class="text-gray-700 mb-4">
+              Где a — коэффициент, принимаем a = 0.001 для расчётов.
+            </p>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Ограничения оптимизации
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >C_min (%):</label
+                >
+                <input
+                  type="number"
+                  id="cMin"
+                  min="0"
+                  max="100"
+                  value="70"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >C_max (%):</label
+                >
+                <input
+                  type="number"
+                  id="cMax"
+                  min="0"
+                  max="100"
+                  value="90"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >t_min (мин):</label
+                >
+                <input
+                  type="number"
+                  id="tMin"
+                  min="1"
+                  max="20"
+                  value="5"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >t_max (мин):</label
+                >
+                <input
+                  type="number"
+                  id="tMax"
+                  min="1"
+                  max="20"
+                  value="15"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Параметры для оптимизации
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >C₀ (%):</label
+                >
+                <input
+                  type="number"
+                  id="optC0"
+                  min="0"
+                  max="50"
+                  value="10"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <label class="block text-gray-700 font-semibold mb-2"
+                  >C∞ (%):</label
+                >
+                <input
+                  type="number"
+                  id="optCInf"
+                  min="50"
+                  max="100"
+                  value="80"
+                  class="w-full p-2 border rounded"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            id="runOptimization"
+            class="w-full bg-purple-600 text-white py-3 rounded-lg font-bold hover:bg-purple-700 transition mb-6"
+          >
+            Найти оптимальные параметры
+          </button>
+
+          <div
+            id="optimizationResults"
+            class="bg-white rounded-xl shadow-lg p-6 md:p-8 hidden"
+          >
+            <h3 class="text-xl font-bold text-green-700 mb-4">
+              Результаты оптимизации
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-green-50 p-4 rounded-lg">
+                <p class="text-gray-700">
+                  Оптимальная скорость n*:
+                  <span id="optN" class="font-mono font-bold text-green-800"
+                    >-</span
+                  >
+                  об/мин
+                </p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <p class="text-gray-700">
+                  Оптимальное время t*:
+                  <span id="optT" class="font-mono font-bold text-green-800"
+                    >-</span
+                  >
+                  мин
+                </p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <p class="text-gray-700">
+                  Достигнутая концентрация C*:
+                  <span id="optC" class="font-mono font-bold text-green-800"
+                    >-</span
+                  >
+                  %
+                </p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <p class="text-gray-700">
+                  Минимальные энергозатраты E*:
+                  <span id="optE" class="font-mono font-bold text-green-800"
+                    >-</span
+                  >
+                  усл.ед.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="optError"
+            class="mt-4 p-3 bg-red-100 text-red-700 rounded-lg hidden"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Results and Conclusions -->
+    <section id="results" class="section bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-3xl font-bold text-blue-800 mb-8 text-center">
+            Результаты и выводы
+          </h2>
+
+          <div class="grid lg:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold text-blue-700 mb-4">
+                Зависимость концентрации от времени
+              </h3>
+              <div class="chart-container">
+                <canvas id="resultsChart1"></canvas>
+              </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl shadow-lg p-6">
+              <h3 class="text-xl font-bold text-blue-700 mb-4">
+                Сравнение режимов смешивания
+              </h3>
+              <div class="chart-container">
+                <canvas id="resultsChart2"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 rounded-xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Энергозатраты для различных режимов
+            </h3>
+            <div class="chart-container">
+              <canvas id="resultsChart3"></canvas>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Автоматические выводы
+            </h3>
+            <div id="conclusions" class="text-gray-700 space-y-3">
+              <p>
+                Проведите вычислительные эксперименты для формирования выводов.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 rounded-xl shadow-lg p-6">
+            <h3 class="text-xl font-bold text-blue-700 mb-4">
+              Интерактивное заключение
+            </h3>
+            <textarea
+              id="userConclusion"
+              class="w-full p-4 border rounded-lg h-32"
+              placeholder="Введите ваши собственные выводы и наблюдения..."
+            ></textarea>
+            <button
+              id="saveConclusion"
+              class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition"
+            >
+              Сохранить заключение
+            </button>
+            <div
+              id="savedConclusion"
+              class="mt-4 p-4 bg-white rounded-lg hidden"
+            >
+              <h4 class="font-bold text-blue-800 mb-2">
+                Сохранённое заключение:
+              </h4>
+              <p id="conclusionText" class="text-gray-700"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white py-6">
+      <div class="container mx-auto px-4 text-center">
+        <p>
+          &copy; 2024 Лабораторная работа: Моделирование процесса приготовления
+          ЛКМ
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
